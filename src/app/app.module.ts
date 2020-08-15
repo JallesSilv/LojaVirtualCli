@@ -1,0 +1,73 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NavComponent } from './components/nav/nav.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { LoginComponent } from './components/login/login.component';
+import { PessoasComponent } from './components/pessoas/pessoas.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { ProdutosComponent } from './components/produtos/produtos.component';
+import { LoginService } from './servicos/login/login.service';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavComponent,
+    MenuComponent,
+    DashboardComponent,
+    PerfilComponent,
+    LoginComponent,
+    PessoasComponent,
+    PedidosComponent,
+    ProdutosComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTabsModule,
+    MatIconModule,
+    FormsModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    NgxSpinnerModule,
+    ModalModule,
+    BrowserAnimationsModule,
+      ToastrModule.forRoot({
+        timeOut: 3500,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true,
+        progressBar: true,
+        closeButton: true
+      }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+  ],
+  providers: [LoginService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

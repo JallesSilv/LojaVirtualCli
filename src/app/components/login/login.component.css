@@ -1,0 +1,32 @@
+.example-card {
+  max-width: 400px;
+  background-color: #e91e63;
+}
+
+.example-header-image {
+  background-image: url('/../../src/assets/images/tema/money.png');
+  background-size: cover;
+}
+.center-content {
+    margin-top: 100px;
+    text-align: -webkit-center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.mat-button{
+    margin-top: 10px;
+  width: 100%;
+  color: white;
+  height: 40px;
+  background-color: #303030;
+}
