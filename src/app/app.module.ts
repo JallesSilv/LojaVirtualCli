@@ -29,6 +29,9 @@ import { environment } from '../environments/environment';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { LoginService } from './servicos/login/login.service';
+import { PessoasService } from './servicos/pessoas/pessoas.service';
+import { NovoCadastroComponent } from './components/pessoas/novo-cadastro/novo-cadastro.component';
+import { ProdutosService } from './servicos/produtos/produtos.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { LoginService } from './servicos/login/login.service';
     LoginComponent,
     PessoasComponent,
     PedidosComponent,
-    ProdutosComponent
+    ProdutosComponent,
+    NovoCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,12 @@ import { LoginService } from './servicos/login/login.service';
       }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [LoginService],
+  providers:
+  [
+    LoginService,
+    PessoasService,
+    ProdutosService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

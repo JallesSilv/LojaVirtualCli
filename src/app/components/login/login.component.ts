@@ -1,8 +1,8 @@
-import { LoginService } from './../../servicos/login/login.service';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Pessoas } from 'src/app/models/pessoas';
-import { Router, ActivatedRoute } from '@angular/router';
+import { LoginService } from './../../servicos/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +18,7 @@ export class LoginComponent implements OnInit {
   public menssagem: string;
   // email: string;
   // password: string;
-  remail: string;
-  rpassword: string;
-  rcpassword: string;
+  verificarSenha: string;
 
   constructor(
         private snackBar: MatSnackBar,
@@ -35,27 +33,54 @@ export class LoginComponent implements OnInit {
     this.pessoa = new Pessoas();
   }
 
-  register() {
-
-  }
-
   login() {
     this.loginSevice.verificarLogin(this.pessoa)
       .subscribe(
         READER_JSON => {
-        this.loginSevice.usuario = READER_JSON;
+          this.loginSevice.usuario = READER_JSON;
           if (this.returnUrl == null) {
-          this.router.navigate(['/']);
-        }else{
-          this.router.navigate([this.returnUrl]);
-        }
-          //console.log(data);
+            this.router.navigate(['/']);
+          }else{
+            this.router.navigate([this.returnUrl]);
+          }
         },
-        error => {
-          console.log(error.error);
-          this.menssagem = error.error;
+        eX => {
+          console.log(eX.error);
+          this.menssagem = eX.error;
         }
       );
+    }
+
+    registrarLogin() {
+      // const pEmail = this.loginSevice.
+        // verificarLogin(this.pessoa).subscribe(
+        // dados => {
+        //   this.loginSevice.usuario.email = dados.email;
+          // if (!pEmail) {
+            this.loginSevice.registrarLogin(this.pessoa)
+            .subscribe(
+              READER_JSON => {
+                this.loginSevice.usuario = READER_JSON;
+                if (this.returnUrl == null) {
+                  this.router.navigate(['/perfil']);
+                }else{
+                  // this.router.navigate([this.returnUrl]);
+                  this.router.navigate(['/perfil']);
+                }
+              },
+              eX => {
+                console.log(eX.error);
+                this.menssagem = eX.error;
+              }
+            );
+          // }
+        // },
+        // eX => {
+        //   console.log('Usuário já Existe');
+        //   this.menssagem = eX.error;
+        // });
+      }
+
 
   //   if (this.pessoa.email  === 'jalles@gmail.com' && this.pessoa.senha === '123456') {
   //       sessionStorage.setItem("usuario-autenticado", "1");
@@ -64,5 +89,4 @@ export class LoginComponent implements OnInit {
   //   // }else{
   //   //   this.snackBar.open('Login error', '', {duration: 1000});
   //   }
-  }
 }

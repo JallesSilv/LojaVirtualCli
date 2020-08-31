@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  beseUrl: 'http://192.168.0.6:5001/'
+  beseUrl: 'http://127.0.0.1:5001/'
 };
 
 /*
