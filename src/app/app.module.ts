@@ -32,6 +32,7 @@ import { LoginService } from './servicos/login/login.service';
 import { PessoasService } from './servicos/pessoas/pessoas.service';
 import { NovoCadastroComponent } from './components/pessoas/novo-cadastro/novo-cadastro.component';
 import { ProdutosService } from './servicos/produtos/produtos.service';
+import { NgxPopper } from 'angular-popper';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ProdutosService } from './servicos/produtos/produtos.service';
         progressBar: true,
         closeButton: true
       }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NgxPopper
   ],
   providers:
   [

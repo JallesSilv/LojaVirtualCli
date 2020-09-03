@@ -13,34 +13,40 @@ import { Pessoas } from 'src/app/models/pessoas';
 })
 export class NovoCadastroComponent implements OnInit {
 
+  title = 'Cadastro de Usuários';
+
   public pessoa: Pessoas;
-  public menssagem: string;
-  public returnUrl: string;
-  public usuarioSelecionado: Pessoas;
-  public clienteForm: FormGroup;
+  public mensagem: string;
+  public ativarSpinner: boolean;
+  public pessoaCadastrado: boolean;
 
   constructor(
-      private pessoasService: PessoasService,
-      private snackBar: MatSnackBar,
-      private router: Router,
-      private activatedRouter: ActivatedRoute
-    )
-    { }
+      private pessoasService: PessoasService
+    ) { }
 
   ngOnInit(): void {
-    this.returnUrl = this.activatedRouter.snapshot.queryParams[`returnUrl`];
     this.pessoa = new Pessoas();
   }
 
+  public carregarUsuario() {
+
+  }
+
   public cadastrar(){
+    // this.pessoasService.
     this.pessoasService.cadastrar(this.pessoa)
     .subscribe(
       READER_JSON => {
-      this.pessoasService.usuario = READER_JSON;
+        this.pessoaCadastrado = true;
+        this.mensagem = '';
+        this.ativarSpinner = true;
+        // this.pessoasService.usuario = READER_JSON;
+        // console.log(READER_JSON);
       },
       eX => {
-        console.log(eX.error);
-        this.menssagem = eX.error;
+        // console.log(eX.error);
+        this.mensagem = eX.error;
+        // this.ativarSpinner = false;
       }
     );
   }

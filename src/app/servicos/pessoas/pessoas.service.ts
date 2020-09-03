@@ -30,17 +30,30 @@ export class PessoasService {
   return new HttpHeaders().set('content-type', 'application/json');
   }
 
+  public limpar_sessao() {
+    sessionStorage.setItem('usuario-autenticado', '');
+    this.Usuario = null;
+  }
+
+  public CarregarUsuario(pChave: number): Observable<Pessoas>{
+    return this.http.get<Pessoas>(`${this.baseUrl}/${pChave}`);
+  }
+
+
   public cadastrar(usuario: Pessoas): Observable<Pessoas> {
     const body = {
       email: usuario.email,
       nome: usuario.nome,
       senha: usuario.senha,
       telefone: usuario.telefone,
-      cpf: usuario.cpf,
+      cpf: usuario.cnpjCpf,
       endereco: usuario.endereco,
       observacoes: usuario.observacoes,
+      dataCadastro: Date.now,
       Ativo: 1 };
 
     return this.http.post<Pessoas>(`${this.baseUrl}`, body, {headers: this.headers});
   }
+
+
 }

@@ -3,7 +3,8 @@ export class Pessoas {
   nome: string;
   email: string;
   senha: string;
-  cpf: string;
+  cnpjCpf: string;
+  cep: string;
   telefone: string;
   dataCadastro: string;
   endereco: string;

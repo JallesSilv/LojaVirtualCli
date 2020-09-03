@@ -1,44 +1,147 @@
 <div class="container">
-  <!-- <form> -->
+  <form class="form-cadastro" #formCadastro="ngForm">
     <div class="form-row">
+      <!-- Nome -->
       <div class="form-group col-md-4">
-        <label>Nome</label>
-        <input class="form-control" placeholder="Email" [(ngModel)]="pessoa.nome">
+        <label for="inputNome" class="sr-only">Nome</label>
+        <input type="text" id="inputNome"
+              name="nome" placeholder="Nome"
+              class="form-control mb-2"
+              [ngClass]="{
+                'is-invalid':nome.invalid && (nome.dirty || nome.touched),
+                'is-valid':nome.valid && (nome.dirty || nome.touched)
+              }"
+              [(ngModel)]="pessoa.nome"
+              #nome="ngModel"
+              required />
+
+        <div class="invalid-feedback mb-2" *ngIf="nome.invalid && (nome.dirty || nome.touched)">
+          <div *ngIf="nome.errors.required">
+            Nome é de preenchimento obrigatório
+          </div>
+        </div>
       </div>
+      <!-- Email -->
       <div class="form-group col-md-5">
-        <label>Email</label>
-        <input class="form-control" placeholder="Email" [(ngModel)]="pessoa.email">
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" id="inputEmail"
+            name="email" placeholder="Email"
+            class="form-control  mb-2"
+            [ngClass]="{
+              'is-invalid':email.invalid && (email.dirty || email.touched),
+              'is-valid':email.valid && (email.dirty || email.touched)
+            }"
+            [(ngModel)]="pessoa.email"
+            #email="ngModel"
+            email
+            required />
+
+        <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors.required">
+            Email é de preenchimento obrigatório
+          </div>
+          <div *ngIf="email.errors.email">
+            Email está no formato inválido
+          </div>
+        </div>
       </div>
+      <!-- Senha -->
       <div class="form-group col-md-3">
-        <label>Senha</label>
-        <input class="form-control" placeholder="Senha" [(ngModel)]="pessoa.senha">
+        <label for="inputSenha" class="sr-only">Senha</label>
+        <input type="password" id="inputSenha"
+              name="senha" placeholder="Senha"
+              class="form-control mb-2"
+              #senha="ngModel"
+              [(ngModel)]="pessoa.senha"
+              [ngClass]="{
+                'is-invalid':senha.invalid && (senha.dirty || senha.touched),
+                'is-valid':senha.valid && (senha.dirty || senha.touched)
+              }"
+              required />
+        <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+          <div *ngIf="senha.errors.required">
+            Senha deve ser informada
+          </div>
+        </div>
       </div>
     </div>
+    <!-- row-fim -->
 
     <div class="form-row">
+      <!-- CPF -->
       <div class="form-group col-md-3">
-        <label>CPF</label>
-        <input class="form-control" placeholder="000.000.000-00" [(ngModel)]="pessoa.cpf">
-      </div>
+        <label for="inputCnpjCpf" class="sr-only">CnpjCpf</label>
+        <input type="text" id="inputCnpjCpf"
+            name="cnpjCpf" placeholder="cnpjCpf"
+            class="form-control mb-2"
+            [ngClass]="{
+              'is-invalid':cnpjCpf.invalid && (cnpjCpf.dirty || cnpjCpf.touched),
+              'is-valid':cnpjCpf.valid && (cnpjCpf.dirty || cnpjCpf.touched)
+            }"
+            [(ngModel)]="pessoa.cnpjCpf"
+            #cnpjCpf="ngModel"
+            cnpjCpf
+            required />
 
+        <div class="invalid-feedback mb-2" *ngIf="cnpjCpf.invalid && (cnpjCpf.dirty || cnpjCpf.touched)">
+          <div *ngIf="cnpjCpf.errors.required">
+            CnpjCpf é de preenchimento obrigatório
+          </div>
+        </div>
+      </div>
+      <!-- Telefone -->
       <div class="form-group col-md-3">
-        <label>Telefone</label>
-        <input class="form-control" placeholder="(00)00000-0000" [(ngModel)]="pessoa.telefone">
+        <label for="inputTelefone" class="sr-only">Telefone</label>
+        <input type="text" id="inputTelefone"
+            name="telefone" placeholder="Telefone"
+            class="form-control mb-2"
+            [(ngModel)]="pessoa.telefone"
+            telefone />
+      </div>
+      <!-- Cep -->
+      <div class="form-group col-md-3">
+        <label for="inputCep" class="sr-only">Cep</label>
+        <input type="text" id="inputCep"
+            name="cep" placeholder="Cep"
+            class="form-control mb-2"
+            [(ngModel)]="pessoa.cep"
+            cep />
       </div>
     </div>
-
+    <!-- Endereco -->
+    <!-- https://viacep.com.br/ws/74769790/json -->
     <div class="form-group">
-      <label>Endereço</label>
-      <input class="form-control" placeholder="Rua dos Bobos, nº 0" [(ngModel)]="pessoa.endereco">
+      <label for="inputEndereco" class="sr-only">Endereço</label>
+        <input type="text" id="inputEndereco"
+            name="endereco" placeholder="Endereço"
+            class="form-control mb-2"
+            [(ngModel)]="pessoa.endereco"
+            endereco />
+    </div>
+    <!-- Observacoes -->
+    <div class="form-group">
+      <label for="inputObservacoes" class="sr-only">Observações</label>
+        <input type="text" id="inputObservacoes"
+            name="observacoes" placeholder="Obs.: Apartamento, hotel, casa, etc."
+            class="form-control mb-2"
+            [(ngModel)]="pessoa.observacoes"
+            observacoes />
     </div>
 
-    <div class="form-group">
-      <label>Observações</label>
-      <input class="form-control" placeholder="Apartamento, hotel, casa, etc." [(ngModel)]="pessoa.observacoes">
+    <div class="alert alert-danger col-md-4" *ngIf="mensagem">
+      {{mensagem}}
     </div>
 
-    <button class="btn btn-primary" (click)="cadastrar()">Salvar</button>
+    <div class="alert alert-success" *ngIf="pessoaCadastrado" >
+      Usuário cadastrado com sucesso! <a class="alert-link" [routerLink]='["/login"]'>Clique aqui</a>
+    </div>
 
-  <!-- </form> -->
+    <!-- <button class="btn btn-primary" (click)="cadastrar()" >Salvar</button> -->
+
+    <button class="btn btn-primary btn-block mb-3" type="submit" (click)="cadastrar()" [disabled]="!formCadastro.valid">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
+      Salvar
+    </button>
+
+  </form>
 </div>
-

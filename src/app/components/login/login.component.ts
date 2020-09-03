@@ -51,42 +51,23 @@ export class LoginComponent implements OnInit {
       );
     }
 
-    registrarLogin() {
-      // const pEmail = this.loginSevice.
-        // verificarLogin(this.pessoa).subscribe(
-        // dados => {
-        //   this.loginSevice.usuario.email = dados.email;
-          // if (!pEmail) {
-            this.loginSevice.registrarLogin(this.pessoa)
-            .subscribe(
-              READER_JSON => {
-                this.loginSevice.usuario = READER_JSON;
-                if (this.returnUrl == null) {
-                  this.router.navigate(['/perfil']);
-                }else{
-                  // this.router.navigate([this.returnUrl]);
-                  this.router.navigate(['/perfil']);
-                }
-              },
-              eX => {
-                console.log(eX.error);
-                this.menssagem = eX.error;
-              }
-            );
-          // }
-        // },
-        // eX => {
-        //   console.log('Usuário já Existe');
-        //   this.menssagem = eX.error;
-        // });
-      }
-
-
-  //   if (this.pessoa.email  === 'jalles@gmail.com' && this.pessoa.senha === '123456') {
-  //       sessionStorage.setItem("usuario-autenticado", "1");
-  //       //this.snackBar.open('Login Successful', '', {duration: 1000});
-  //       this.router.navigate([this.returnUrl]);
-  //   // }else{
-  //   //   this.snackBar.open('Login error', '', {duration: 1000});
-  //   }
+  registrarLogin() {
+      this.loginSevice.registrarLogin(this.pessoa)
+      .subscribe(
+        READER_JSON => {
+          if (READER_JSON.senha === this.verificarSenha) {
+            this.loginSevice.usuario = READER_JSON;
+          }
+          if (this.returnUrl == null) {
+            this.router.navigate(['/perfil']);
+          }else{
+            this.router.navigate([this.returnUrl]);
+          }
+        },
+        eX => {
+          console.log(eX.error);
+          this.menssagem = eX.error;
+        }
+      );
+    }
 }

@@ -1,4 +1,25 @@
-.mat-drawer-container {
+/* .mat-drawer-container {
   background-color: #303030;
   color: #fff;
+} */
+
+.form-cadastro{
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+}
+
+.form-cadastro input[type="email"]
+{
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-cadastro .form-control{
+  position: relative;
+  box-sizing: border-box;
+  height:auto;
+  padding: 10px;
+  font-size: 16px;
 }

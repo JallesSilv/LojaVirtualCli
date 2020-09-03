@@ -12,6 +12,15 @@ export class NavComponent implements OnInit {
   constructor(private router: Router,
               private loginService: LoginService) {
   }
+  public isExpanded: boolean;
+
+  collapse(){
+    this.isExpanded = false;
+  }
+
+  toggle(){
+    this.isExpanded = !this.isExpanded;
+  }
 
  public usuarioLogado(): boolean {
    return this.loginService.usuario_autenticado();
@@ -20,6 +29,10 @@ export class NavComponent implements OnInit {
  sair(){
    this.loginService.limpar_sessao();
    this.router.navigate(['/']);
+ }
+
+ get usuario(){
+   return this.loginService.usuario;
  }
 
   ngOnInit(): void {

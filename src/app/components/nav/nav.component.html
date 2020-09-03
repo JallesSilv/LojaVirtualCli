@@ -17,17 +17,18 @@
         </li>
       </ul>
       <ul class="navbar-nav" dropdown>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="usuarioLogado()" >
+          <a class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
+              id="linkMenu" data-toggle="dropdown" >{{usuario.nome}}</a>
+              <ul class="dropdown-menu" aria-labelledby="linkMenu">
+                <li class="dropdown-item" role="menu" [routerLink]='["/sair"]' (click)="sair()">Sair</li>
+              </ul>
 
-          <a class="nav-link dropdown-toggle" href="perfil" id="button" dropdownToggle style="cursor: pointer;"
-            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Perfil
-          </a>
-          <div  id="dropdown-menu" *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <!-- <div  id="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink" *dropdownMenu class="dropdown-menu">
             <a routerLink="perfil" class="dropdown-item" href="#">perfil</a>
             <a class="dropdown-item" href="#">Entrar</a>
             <a class="dropdown-item" href="#">Sair</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item" *ngIf="!usuarioLogado()">
          <a routerLink="login" routerLinkActive='active' class="nav-link">Entrar<span class="sr-only">(current)</span></a>

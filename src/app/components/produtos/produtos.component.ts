@@ -9,7 +9,11 @@ import { error } from 'protractor';
   styleUrls: ['./produtos.component.css']
 })
 export class ProdutosComponent implements OnInit {
+
+  title = 'Cadastro de Produto';
   public produto: Produtos;
+  public mensagem: string;
+  public ativarSpinner: boolean;
   constructor(private produtosService: ProdutosService) { }
 
   ngOnInit(): void {
@@ -19,8 +23,8 @@ export class ProdutosComponent implements OnInit {
   public cadastrar(){
   this.produtosService.cadastrarProdutos(this.produto)
   .subscribe(
-    produtoJson => {
-      console.log(produtoJson);
+    PRODUTOJSON => {
+      console.log(PRODUTOJSON);
     },
     eX => {
       console.log(eX.error);
