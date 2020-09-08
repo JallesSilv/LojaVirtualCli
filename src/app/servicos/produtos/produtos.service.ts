@@ -1,9 +1,11 @@
+import { strict } from 'assert';
 import { environment } from './../../../environments/environment';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Produtos } from './../../models/produtos';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tick } from '@angular/core/testing';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -40,4 +42,9 @@ constructor(private http: HttpClient) { }
     return this.http.get<Produtos[]>(`${this.baseUrl}/${pChave}`);
   }
 
+  public enviarArquivo(arquivoSelecionado: File): Observable<string> {
+    const formData: FormData = new FormData();
+    formData.append('arquivoEnviado', arquivoSelecionado, arquivoSelecionado.name);
+    return this.http.post<string>(`${this.baseUrl}/EnviarArquivo`, formData);
+  }
 }
