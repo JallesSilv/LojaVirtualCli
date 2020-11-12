@@ -21,6 +21,7 @@
           <a class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
               id="linkMenu" data-toggle="dropdown" >{{usuario.nome}}</a>
               <ul class="dropdown-menu" aria-labelledby="linkMenu">
+                <li class="dropdown-item" role="menu" [routerLink]='["/perfil"]'>Perfil</li>
                 <li class="dropdown-item" role="menu" [routerLink]='["/sair"]' (click)="sair()">Sair</li>
               </ul>
 

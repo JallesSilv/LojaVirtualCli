@@ -35,8 +35,8 @@ export class PessoasService {
     this.Usuario = null;
   }
 
-  public CarregarUsuario(pChave: number): Observable<Pessoas>{
-    return this.http.get<Pessoas>(`${this.baseUrl}/${pChave}`);
+  public CarregarUsuario(usuario: Pessoas): Observable<Pessoas>{
+    return this.http.get<Pessoas>(`${this.baseUrl}/GetId?pChave/${usuario.chavePessoa}`);
   }
 
 
@@ -49,10 +49,24 @@ export class PessoasService {
       cpf: usuario.cnpjCpf,
       endereco: usuario.endereco,
       observacoes: usuario.observacoes,
-      dataCadastro: Date.now,
+      dataCadastro: new Date,
       Ativo: 1 };
 
     return this.http.post<Pessoas>(`${this.baseUrl}`, body, {headers: this.headers});
+  }
+
+  public atualizar(usuario: Pessoas): Observable<Pessoas> {
+    const body = {
+      email: usuario.email,
+      nome: usuario.nome,
+      senha: usuario.senha,
+      telefone: usuario.telefone,
+      cpf: usuario.cnpjCpf,
+      endereco: usuario.endereco,
+      observacoes: usuario.observacoes,      
+      Ativo: 1 };
+
+    return this.http.put<Pessoas>(`${this.baseUrl}`, body, {headers: this.headers});
   }
 
 

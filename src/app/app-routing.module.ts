@@ -8,6 +8,7 @@ import { PessoasComponent } from './components/pessoas/pessoas.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { NovoCadastroComponent } from './components/pessoas/novo-cadastro/novo-cadastro.component';
+import { ProdutosCadastroComponent } from './components/produtos/produtos-cadastro/produtos-cadastro.component';
 
 
 const routes: Routes = [
@@ -17,8 +18,9 @@ const routes: Routes = [
   {path: 'pessoas', component: PessoasComponent},
   {path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuard] },
   {path: 'produtos', component: ProdutosComponent},
-  {path: 'perfil', component: PerfilComponent},
-  {path: 'novo-cadastro', component: NovoCadastroComponent, canActivate: [AuthGuard] }
+  {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  {path: 'novo-cadastro', component: NovoCadastroComponent, canActivate: [AuthGuard] },
+  {path: 'produtos-cadastro', component: ProdutosCadastroComponent},
 ];
 
 @NgModule({

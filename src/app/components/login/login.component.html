@@ -1,4 +1,145 @@
-<div class="center-content">
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <nav>
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="true">Login</a>
+          <a class="nav-item nav-link" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="false">Registrar</a>
+        </div>
+      </nav>
+      <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+          <form class="form-signin" id="signin" >
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" id="inputEmail"
+                  name="email" placeholder="Informe o seu Email"
+                  class="form-control mb-2"
+                  [ngClass] ="{
+                    'is-invalid':email.invalid && (email.dirty || email.touched),
+                    'is-valid':email.valid && (email.dirty || email.touched)
+                  }"
+                  [(ngModel)]="pessoa.email"
+                  #email="ngModel"
+                  email
+                  required/>
+
+            <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+              <div *ngIf="email.errors.required">
+                Email é de preenchimento obrigatório
+              </div>
+              <div *ngIf="email.errors.email">
+                Email está no formato inválido
+              </div>
+            </div>
+
+            <label for="inputSenha" class="sr-only">Senha</label>
+            <input type="password" id="inputSenha"
+                  name="senha" placeholder="Senha"
+                  class="form-control mb-2"
+                  #senha="ngModel"
+                  [(ngModel)]="pessoa.senha"
+                  [ngClass] ="{
+                    'is-invalid':senha.invalid && (senha.dirty || senha.touched),
+                    'is-valid':senha.valid && (senha.dirty || senha.touched)
+                  }"
+
+                  required/>
+            <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+              <div *ngIf="senha.errors.required">
+                Senha deve ser informada
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block mb-3" type="submit" (click)="login()" [disabled]="ativarSpinner">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
+              Entrar
+            </button>
+
+            <div class="alert alert-danger" *ngIf="mensagem">
+                {{mensagem}}
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
+          <form class="form-signin">
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" id="inputEmail"
+                  name="email" placeholder="Informe o seu Email"
+                  class="form-control mb-2"
+                  [ngClass] ="{
+                    'is-invalid':email.invalid && (email.dirty || email.touched),
+                    'is-valid':email.valid && (email.dirty || email.touched)
+                  }"
+                  [(ngModel)]="pessoa.email"
+                  #email="ngModel"
+                  email
+                  required/>
+
+            <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+              <div *ngIf="email.errors.required">
+                Email é de preenchimento obrigatório
+              </div>
+              <div *ngIf="email.errors.email">
+                Email está no formato inválido
+              </div>
+            </div>
+
+            <label for="inputSenha" class="sr-only">Senha</label>
+            <input type="password" id="inputSenha"
+                  name="senha" placeholder="Senha"
+                  class="form-control mb-2"
+                  #senha="ngModel"
+                  [(ngModel)]="pessoa.senha"
+                  [ngClass] ="{
+                    'is-invalid':senha.invalid && (senha.dirty || senha.touched),
+                    'is-valid':senha.valid && (senha.dirty || senha.touched)
+                  }"
+                  required/>
+
+            <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+              <div *ngIf="senha.errors.required">
+                Senha deve ser informada
+              </div>
+            </div>
+
+            <label for="inputSenha" class="sr-only">Confirmar Senha</label>
+            <input type="password" id="inputSenha"
+            name="senha" placeholder="Confirmar Senha"
+            class="form-control mb-2"
+            #senha="ngModel"
+            [(ngModel)]="verificarSenha"
+            [ngClass] ="{
+              'is-invalid':senha.invalid && (senha.dirty || senha.touched),
+              'is-valid':senha.valid && (senha.dirty || senha.touched)
+            }"
+            required/>
+
+            <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+              <div *ngIf="senha.errors.required">
+                Senha diferente
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block mb-3" type="submit" (click)="registrarLogin()" [disabled]="ativarSpinner">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
+              Registrar
+            </button>
+
+            <div class="alert alert-danger" *ngIf="mensagem">
+                {{mensagem}}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- -------------------------------------------- -->
+
+<!-- <div class="center-content">
   <mat-card class="example-card">
     <div class="alert alert-danger" *ngIf="menssagem">
       {{menssagem}}
@@ -14,9 +155,9 @@
     </mat-card-header>
     <mat-card-content>
 
-      <!-- Toda a divi -->
+      <!-- Toda a divi
       <mat-tab-group>
-        <!-- tela de login -->
+        <!-- tela de login
         <mat-tab label="Login">
           <mat-form-field class="example-full-width">
             <mat-label>Email</mat-label>
@@ -32,7 +173,7 @@
           <button mat-button color="primary" (click)="login()">Login</button>
         </mat-tab>
 
-        <!-- tela de registrar -->
+        <!-- tela de registrar
         <mat-tab label="Register">
           <mat-form-field class="example-full-width">
             <mat-label>Email</mat-label>
@@ -57,4 +198,4 @@
     </mat-card-content>
 
   </mat-card>
-</div>
+</div> -->

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   public pessoa;
   public returnUrl: string;
-  public menssagem: string;
+  public mensagem: string;
   public ativarSpinner: boolean;
   // email: string;
   // password: string;
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         },
         eX => {
           console.log(eX.error);
-          this.menssagem = eX.error;
+          this.mensagem = eX.error;
           this.ativarSpinner = false;
         }
       );
@@ -59,26 +59,32 @@ export class LoginComponent implements OnInit {
 
   registrarLogin() {
     this.ativarSpinner = true;
-    this.loginSevice.registrarLogin(this.pessoa)
-    .subscribe(
-      READER_JSON => {
-          if (READER_JSON.senha === this.verificarSenha) {
-            this.loginSevice.usuario = READER_JSON;
+    if (this.pessoa.senha === this.verificarSenha) {
+      this.loginSevice.registrarLogin(this.pessoa)
+      .subscribe(
+        READER_JSON => {            
+              this.loginSevice.usuario = READER_JSON;
+              this.ativarSpinner = false;
+                          
+            if (this.returnUrl == null) {
+              this.router.navigate(['/perfil']);
+              this.ativarSpinner = false;
+            }else{
+              this.router.navigate([this.returnUrl]);
+              this.ativarSpinner = false;
+            }
+          },
+          eX => {
+            console.log(eX.error);
+            this.mensagem = eX.error;
             this.ativarSpinner = false;
           }
-          if (this.returnUrl == null) {
-            this.router.navigate(['/perfil']);
-            this.ativarSpinner = false;
-          }else{
-            this.router.navigate([this.returnUrl]);
-            this.ativarSpinner = false;
-          }
-        },
-        eX => {
-          console.log(eX.error);
-          this.menssagem = eX.error;
-          this.ativarSpinner = false;
-        }
-      );
+        );
+    }else{
+      this.mensagem = 'Senha diferente!!!';
+      this.ativarSpinner = false;
     }
+
+    
+  }
 }

@@ -23,7 +23,7 @@ constructor(private http: HttpClient) { }
   }
 
   public cadastrarProdutos(produto: Produtos): Observable<Produtos> {
-    return this.http.post<Produtos>(`${this.baseUrl}/cadastrar`, JSON.stringify(produto), {headers: this.headers});
+    return this.http.post<Produtos>(`${this.baseUrl}`, JSON.stringify(produto), {headers: this.headers});
   }
 
   public salvarProdutos(produto: Produtos): Observable<Produtos> {

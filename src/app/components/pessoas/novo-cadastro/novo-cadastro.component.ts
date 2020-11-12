@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { error } from 'protractor';
 import { PessoasService } from './../../../servicos/pessoas/pessoas.service';
 import { Pessoas } from 'src/app/models/pessoas';
+import { LoginService } from 'src/app/servicos/login/login.service';
 
 @Component({
   selector: 'app-novo-cadastro',
@@ -15,26 +16,40 @@ export class NovoCadastroComponent implements OnInit {
 
   title = 'Cadastro de Usuários';
 
-  public pessoa: Pessoas;
+  public pessoas: Pessoas;
   public mensagem: string;
   public ativarSpinner: boolean;
   public pessoaCadastrado: boolean;
 
   constructor(
-      private pessoasService: PessoasService
-    ) { }
+      private pessoasService: PessoasService,
+      private loginService: LoginService
+    )
+  {
+  }
 
   ngOnInit(): void {
-    this.pessoa = new Pessoas();
+    var pessoaSession = sessionStorage.getItem('pessoaSession');
+    if (pessoaSession) {
+      this.pessoas = JSON.parse(pessoaSession);
+    }else{
+      this.pessoas = new Pessoas();
+    }
+    this.UsuarioSelecionado();
   }
 
-  public carregarUsuario() {
-
+  get usuario(){
+    return this.loginService.usuario;
   }
 
-  public cadastrar(){
+  public UsuarioSelecionado() {
+    this.pessoas = this.usuario;
+    console.log(this.pessoas);    
+  }
+
+  public atualizar(){
     // this.pessoasService.
-    this.pessoasService.cadastrar(this.pessoa)
+    this.pessoasService.atualizar(this.pessoas)
     .subscribe(
       READER_JSON => {
         this.pessoaCadastrado = true;
@@ -46,7 +61,7 @@ export class NovoCadastroComponent implements OnInit {
       eX => {
         // console.log(eX.error);
         this.mensagem = eX.error;
-        // this.ativarSpinner = false;
+        this.ativarSpinner = false;
       }
     );
   }

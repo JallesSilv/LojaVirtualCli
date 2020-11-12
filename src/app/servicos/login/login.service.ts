@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { Pessoas } from 'src/app/models/pessoas';
 import { environment } from './../../../environments/environment.prod';
 import { strict } from 'assert';
+import { DatePipe } from '@angular/common';
+import { DateAdapter } from '@angular/material/core';
+import { NodeWithI18n } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +56,7 @@ export class LoginService {
     const body = {
       email: login.email,
       senha: login.senha,
+      dataCadastro: new Date,
       Ativo: 1 };
 
     return this.http.post<Pessoas>(`${this.baseUrl}`, body, {headers: this.headers});

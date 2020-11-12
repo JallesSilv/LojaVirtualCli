@@ -6,10 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -33,6 +32,8 @@ import { PessoasService } from './servicos/pessoas/pessoas.service';
 import { NovoCadastroComponent } from './components/pessoas/novo-cadastro/novo-cadastro.component';
 import { ProdutosService } from './servicos/produtos/produtos.service';
 import { NgxPopper } from 'angular-popper';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProdutosCadastroComponent } from './components/produtos/produtos-cadastro/produtos-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -45,10 +46,11 @@ import { NgxPopper } from 'angular-popper';
     PessoasComponent,
     PedidosComponent,
     ProdutosComponent,
-    NovoCadastroComponent
+    NovoCadastroComponent,
+    ProdutosCadastroComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     AppRoutingModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -71,7 +73,8 @@ import { NgxPopper } from 'angular-popper';
         closeButton: true
       }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    NgxPopper
+    NgxPopper,
+    NgbModule
   ],
   providers:
   [

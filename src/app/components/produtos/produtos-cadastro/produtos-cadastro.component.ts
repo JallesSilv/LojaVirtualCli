@@ -1,30 +1,23 @@
-
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TipoCategoria } from 'src/app/models/tipocategoria';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutosService } from 'src/app/servicos/produtos/produtos.service';
 
-
 @Component({
-  selector: 'app-produtos',
-  templateUrl: './produtos.component.html',
-  styleUrls: ['./produtos.component.css']
+  selector: 'app-produtos-cadastro',
+  templateUrl: './produtos-cadastro.component.html',
+  styleUrls: ['./produtos-cadastro.component.css']
 })
-export class ProdutosComponent implements OnInit {
+export class ProdutosCadastroComponent implements OnInit {
 
   title = 'Cadastro de Produto';
-  public modalRef: BsModalRef;
   public produto: Produtos;
   public mensagem: string;
   public ativarSpinner: boolean;
   arquivoSelecionado: File;
 
   constructor(private produtosService: ProdutosService,
-              private router: Router,
-              // private modalService: BsModalService
-              ) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     const produtoSession = sessionStorage.getItem('produtoSession');
@@ -69,15 +62,11 @@ export class ProdutosComponent implements OnInit {
     );
   }
 
-  openModal(template: TemplateRef<TipoCategoria>) {
-    // var test = new PedidosComponent(template.elementRef.nativeElement);
-    // this.modalRef = this.modalService.show(template);
-  }
-
   public ativarEspera() {
     this.ativarSpinner = true;
   }
   public DesativarEspera() {
     this.ativarSpinner = false;
   }
+
 }
