@@ -1,27 +1,26 @@
-import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Pessoas } from 'src/app/models/pessoas';
 import { LoginService } from 'src/app/servicos/login/login.service';
 import { PessoasService } from 'src/app/servicos/pessoas/pessoas.service';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  selector: 'app-pessoas-pesquisar',
+  templateUrl: './pessoas-pesquisar.component.html',
+  styleUrls: ['./pessoas-pesquisar.component.css']
 })
-export class PerfilComponent implements OnInit, OnDestroy {
+export class PessoasPesquisarComponent implements OnInit, OnDestroy {
 
   public modalRef: BsModalRef;
   public pessoaForm: FormGroup;
   public titulo = 'Pesquisar';
-  public pessoas = this.usuarioLogado;
+  public pessoas: Pessoas;
   public pessoaSelecionado: Pessoas;
-  public carregarLoginSelecionado: Pessoas;
+  // public carregarLoginSelecionado: Pessoas;
 
   private unsubscriber = new Subject();
   public modeUpdate = '';
@@ -29,8 +28,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
   public error: any;
 
   ngOnInit(): void {
-    // this.carregarPessoas();
-    this.pessoaSelect(this.pessoas);
+    this.carregarPessoas();
   }
 
   ngOnDestroy(): void {
@@ -60,7 +58,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
 
   criarForm(){
     this.pessoaForm = this.fb.group({
-      ativo:['', Validators.required],
       chavePessoa:['', Validators.required],
       nome:['', Validators.required],
       email:['', Validators.required],
@@ -71,11 +68,13 @@ export class PerfilComponent implements OnInit, OnDestroy {
       dataCadastro:['', Validators.required],
       endereco:['', Validators.required],
       observacoes:['', Validators.required],
+      ativo:['', Validators.required]
     });
   }
 
   carregarPessoas()  {
-    this.pessoasService.getChave(this.pessoas.chavePessoa)
+    // this.spinner.show();
+    this.pessoasService.getAll()
     .subscribe(
       (data: Pessoas) => {
         this.pessoas = data;
@@ -88,43 +87,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
   }
 
   savePessoa(){
-    // this.ativarSpinner = true;
-    // this.pessoasService.atualizar(this.pessoaForm.value)
-    // .subscribe(
-    //   READER_JSON => {
-        // this.pessoaCadastrado = true;
-        // this.mensagem = '';
-        // this.pessoasService.usuario = READER_JSON;
-        // console.log(READER_JSON);
-      // },
-      // eX => {
-        // console.log(eX.error);
-        // this.mensagem = eX.error;
-        // this.ativarSpinner = false;
-    //   }
-    // );
-    if (this.pessoaForm.valid) {
-      // this.spinner.show();
-
-      if (this.modeUpdate === 'post') {
-        this.pessoas = {...this.pessoaForm.value};
-      }else {
-        this.pessoas = {chavePessoa: this.pessoaSelecionado.chavePessoa, ...this.pessoaForm.value };
-      }
-      this.pessoasService[this.modeUpdate](this.pessoas.chavePessoa, this.pessoas)
-      .pipe(takeUntil(this.unsubscriber))
-      .subscribe(
-        () => {
-          this.carregarPessoas();
-          this.toastr.success('Cleinte Salvo Com Sucesso!');
-        },
-        (error: any) => {
-          this.error(`Erro: Cleinte não pode ser salvo!`);
-          console.log(error);
-        },
-        //  () => this.spinner.hide()
-      );
-    }
+    
   }
 
   MostrarMensagem(texto: string)
@@ -139,9 +102,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
   pessoaSelect(pessoas: Pessoas){
     this.modeUpdate = 'put';
     this.pessoaSelecionado = pessoas;
-    this.pessoaSubmit();
     this.pessoaForm.patchValue(pessoas);
-    console.log(this.pessoaForm);
   }
   
   voltar() {

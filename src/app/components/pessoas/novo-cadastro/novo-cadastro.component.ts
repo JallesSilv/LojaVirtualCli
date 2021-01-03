@@ -23,7 +23,8 @@ export class NovoCadastroComponent implements OnInit {
 
   constructor(
       private pessoasService: PessoasService,
-      private loginService: LoginService
+      private loginService: LoginService,
+      private router: Router,
     )
   {
   }
@@ -43,18 +44,22 @@ export class NovoCadastroComponent implements OnInit {
   }
 
   public UsuarioSelecionado() {
-    this.pessoas = this.usuario;
-    console.log(this.pessoas);    
+    this.pessoas = new Pessoas();
+    // console.log(this.pessoas);
   }
 
-  public atualizar(){
-    // this.pessoasService.
-    this.pessoasService.atualizar(this.pessoas)
+  public Cadastrar(){
+    this.pessoas = new Pessoas();    
+  }
+
+  public SalvaCadastro(){
+    this.ativarSpinner = true;
+    this.pessoasService.cadastrar(this.pessoas)
     .subscribe(
       READER_JSON => {
         this.pessoaCadastrado = true;
         this.mensagem = '';
-        this.ativarSpinner = true;
+        this.router.navigate['/pessoas-pesquisar'];
         // this.pessoasService.usuario = READER_JSON;
         // console.log(READER_JSON);
       },

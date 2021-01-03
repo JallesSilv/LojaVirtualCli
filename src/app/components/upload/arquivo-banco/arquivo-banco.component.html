@@ -1,0 +1,14 @@
+<!-- <div class="input-group mb-2">
+    <div class="custom-file col-md-4">
+    <input type="file" class="custom-file-input" id="inputFile" (change)="inputChange($event.target.files)" />
+    <label for="inputFile" class="custom-file-label">{{arquivoBanco}}</label>
+    </div>
+</div> -->
+
+
+
+<label>Select a File(s) (&lt; 1MB)</label><br/>
+<input type="file" (change)="onFileChange($event)" multiple="multiple" /><br/>
+<button (click)="uploadFile()" [disabled]="!theFiles.length">Upload {{theFiles.length}} File(s)</button>
+
+    <!-- ** END: INFORMATION MESSAGE AREA ** -->

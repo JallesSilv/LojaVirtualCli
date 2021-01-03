@@ -14,9 +14,9 @@ export class ProdutosService {
 
   public Produto: Produtos[];
 
-public baseUrl = `${environment.beseUrl}api/Produtos`;
+  public baseUrl = `${environment.beseUrl}api/Produtos`;
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   get headers(): HttpHeaders {
     return new HttpHeaders().set('content-type', 'application/json');

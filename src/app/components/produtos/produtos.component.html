@@ -1,3 +1,25 @@
+<!-- <div class="modal-body">
+  <app-produtos-cadastro></app-produtos-cadastro>
+</div> -->
+
+<div class="container">
+  <div class="container-fluid">
+    <div class="modal-body">
+      <div [ngClass]="{'col-sm-1': false, 'col-sm-2': true }">
+        <button (click)="openModal(template)" class="btn btn-sm btn-outline-danger">Cadastrar Produto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body">
+    <app-produtos-cadastro>
+
+      
+    </app-produtos-cadastro>
+  </div>
+</ng-template>
 <!-- <div class="container col-md-12">
   <h1 class="h4 titulo"><title></title></h1>
 
@@ -83,7 +105,7 @@
   </div>
 </div> -->
 
-<div [ngClass]="{'col-sm-1': false, 'col-sm-2': true }">
+<!-- <div [ngClass]="{'col-sm-1': false, 'col-sm-2': true }">
   <button (click)="openModal(template)" class="btn btn-sm btn-outline-danger">Categoria</button>
 </div>
 
@@ -96,7 +118,7 @@
       FECHAR
     </button>
   </div>
-</ng-template>
+</ng-template> -->
 
 <!-- <div class="col-sm-12">
   <ng-container *ngIf="clientes; else carregando">

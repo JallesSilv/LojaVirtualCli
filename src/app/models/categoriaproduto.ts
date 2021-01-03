@@ -1,4 +1,4 @@
-export class TipoCategoria {
+export class CategoriaProduto {
   chaveCategoria: number;
   descricao: string;
   ativo: boolean;

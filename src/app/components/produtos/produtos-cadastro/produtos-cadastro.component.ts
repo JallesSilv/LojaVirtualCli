@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, destroyPlatform, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutosService } from 'src/app/servicos/produtos/produtos.service';
 
@@ -17,7 +18,8 @@ export class ProdutosCadastroComponent implements OnInit {
   arquivoSelecionado: File;
 
   constructor(private produtosService: ProdutosService,
-              private router: Router) { }
+              private router: Router,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     const produtoSession = sessionStorage.getItem('produtoSession');
@@ -50,22 +52,27 @@ export class ProdutosCadastroComponent implements OnInit {
     this.produtosService.cadastrarProdutos(this.produto)
     .subscribe(
       PRODUTOJSON => {
-        console.log(PRODUTOJSON);
-        this.DesativarEspera();
+        // console.log(PRODUTOJSON);
+        this.desativarEspera();
         this.router.navigate(['/produtos']);
       },
       eX => {
         console.log(eX.error);
         this.mensagem = eX.error;
-        this.DesativarEspera();
+        this.desativarEspera();
       }
     );
+  }
+  
+  public cancelar(){
+    if(this.modalService.hasOpenModals())
+      this.modalService.dismissAll();    
   }
 
   public ativarEspera() {
     this.ativarSpinner = true;
   }
-  public DesativarEspera() {
+  public desativarEspera() {
     this.ativarSpinner = false;
   }
 

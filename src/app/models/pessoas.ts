@@ -1,5 +1,6 @@
 export class Pessoas {
   chavePessoa: number;
+  chaveControleAcesso: number;
   nome: string;
   email: string;
   senha: string;

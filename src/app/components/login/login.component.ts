@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     ) {
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.returnUrl = this.activatedRouter.snapshot.queryParams[`returnUrl`];
     this.pessoa = new Pessoas();
   }

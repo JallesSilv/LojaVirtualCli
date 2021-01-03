@@ -1,7 +1,4 @@
-<!-- <div class="container" *ngFor="!pessoa.chave">  
-    <input type="number" class="form-control" 
-      placeholder="{{pessoa.chave}}" autofocus readonly >
-</div> -->
+
 <div class="container">
   <form class="form-cadastro" #formCadastro="ngForm">
       <div class="form-row">
@@ -30,6 +27,7 @@
           <label for="inputEmail" class="sr-only">Email</label>
           <input type="email" id="inputEmail"
               name="email" placeholder="Email"
+              value=""
               class="form-control  mb-2"
               [ngClass]="{
                 'is-invalid':email.invalid && (email.dirty || email.touched),
@@ -137,14 +135,14 @@
       </div>
 
       <div class="alert alert-success" *ngIf="pessoaCadastrado" >
-        Usuário cadastrado com sucesso! <a class="alert-link" [routerLink]='["/login"]'>Clique aqui</a>
+        Usuário cadastrado com sucesso! <!-- <a class="alert-link" [routerLink]='["/login"]'>Clique aqui</a> -->
       </div>
 
       <!-- <button class="btn btn-primary" (click)="cadastrar()" >Salvar</button> -->
 
-      <button class="btn btn-primary btn-block mb-3" type="submit" (click)="atualizar()" [disabled]="!formCadastro.valid">
+      <button class="btn btn-primary btn-block mb-3" type="submit" (click)="SalvaCadastro()" [disabled]="!formCadastro.valid">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
-        Salvar
+        Cadastrar
       </button>
     
   </form>

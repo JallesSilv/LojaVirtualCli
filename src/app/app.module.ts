@@ -10,30 +10,39 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { LoginComponent } from './components/login/login.component';
-import { PessoasComponent } from './components/pessoas/pessoas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { PedidosComponent } from './components/pedidos/pedidos.component';
-import { ProdutosComponent } from './components/produtos/produtos.component';
-import { LoginService } from './servicos/login/login.service';
-import { PessoasService } from './servicos/pessoas/pessoas.service';
-import { NovoCadastroComponent } from './components/pessoas/novo-cadastro/novo-cadastro.component';
-import { ProdutosService } from './servicos/produtos/produtos.service';
 import { NgxPopper } from 'angular-popper';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../environments/environment';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './servicos/login/login.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { ArquivoBancoComponent } from './components/upload/arquivo-banco/arquivo-banco.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PedidosCadastroComponent } from './components/pedidos/pedidos-cadastro/pedidos-cadastro.component';
+import { ProdutosComponent } from './components/produtos/produtos.component';
+import { ProdutosService } from './servicos/produtos/produtos.service';
 import { ProdutosCadastroComponent } from './components/produtos/produtos-cadastro/produtos-cadastro.component';
+import { PessoasComponent } from './components/pessoas/pessoas.component';
+import { PessoasService } from './servicos/pessoas/pessoas.service';
+import { PessoasPesquisarComponent } from './components/pessoas/pessoas-pesquisar/pessoas-pesquisar.component';
+import { NovoCadastroComponent } from './components/pessoas/novo-cadastro/novo-cadastro.component';
+import { FinanceiroComponent } from './components/financeiro/financeiro.component';
+import { FinanceiroCadastroComponent } from './components/financeiro/financeiro-cadastro/financeiro-cadastro.component';
+import { FinanceiroMovimentacaoComponent } from './components/financeiro/financeiro-movimentacao/financeiro-movimentacao.component';
+
+import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -44,10 +53,16 @@ import { ProdutosCadastroComponent } from './components/produtos/produtos-cadast
     PerfilComponent,
     LoginComponent,
     PessoasComponent,
-    PedidosComponent,
-    ProdutosComponent,
     NovoCadastroComponent,
+    PessoasPesquisarComponent,
+    ProdutosComponent,
     ProdutosCadastroComponent,
+    PedidosComponent,
+    PedidosCadastroComponent,
+    ArquivoBancoComponent,
+    FinanceiroComponent,
+    FinanceiroCadastroComponent,
+    FinanceiroMovimentacaoComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,7 +78,7 @@ import { ProdutosCadastroComponent } from './components/produtos/produtos-cadast
     MatSnackBarModule,
     HttpClientModule,
     NgxSpinnerModule,
-    ModalModule,
+    ModalModule.forRoot(),
     BrowserAnimationsModule,
       ToastrModule.forRoot({
         timeOut: 3500,
@@ -78,9 +93,11 @@ import { ProdutosCadastroComponent } from './components/produtos/produtos-cadast
   ],
   providers:
   [
+    httpInterceptorProviders,
     LoginService,
     PessoasService,
-    ProdutosService
+    ProdutosService,
+    BsModalService
   ],
   bootstrap: [AppComponent]
 })

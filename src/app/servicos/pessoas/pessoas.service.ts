@@ -3,6 +3,7 @@ import { Pessoas } from './../../models/pessoas';
 import { environment } from './../../../environments/environment.prod';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+// import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +36,12 @@ export class PessoasService {
     this.Usuario = null;
   }
 
-  public CarregarUsuario(usuario: Pessoas): Observable<Pessoas>{
-    return this.http.get<Pessoas>(`${this.baseUrl}/GetId?pChave/${usuario.chavePessoa}`);
+  public getChave(chave: number): Observable<Pessoas>{
+    return this.http.get<Pessoas>(`${this.baseUrl}/GetId?pChave/${chave}`);
+  }
+
+  public getAll(): Observable<Pessoas> {
+    return this.http.get<Pessoas>(`${this.baseUrl}/GetAll`);
   }
 
 
@@ -54,20 +59,23 @@ export class PessoasService {
 
     return this.http.post<Pessoas>(`${this.baseUrl}`, body, {headers: this.headers});
   }
-
-  public atualizar(usuario: Pessoas): Observable<Pessoas> {
-    const body = {
-      email: usuario.email,
-      nome: usuario.nome,
-      senha: usuario.senha,
-      telefone: usuario.telefone,
-      cpf: usuario.cnpjCpf,
-      endereco: usuario.endereco,
-      observacoes: usuario.observacoes,      
-      Ativo: 1 };
-
-    return this.http.put<Pessoas>(`${this.baseUrl}`, body, {headers: this.headers});
+  public put(pessoas: Pessoas){
+    return this.http.put(`${this.baseUrl}`,pessoas, {headers: this.headers});
   }
 
+  public atualizar(usuario: Pessoas): Observable<Pessoas> {
+    // const body = {
+    //   chavePessoa: usuario.chavePessoa,
+    //   email: usuario.email,
+    //   nome: usuario.nome,
+    //   senha: usuario.senha,
+    //   telefone: usuario.telefone,
+    //   cpf: usuario.cnpjCpf,
+    //   endereco: usuario.endereco,
+    //   observacoes: usuario.observacoes,      
+    //   Ativo: 1 };
+
+    return this.http.put<Pessoas>(`${this.baseUrl}`, usuario, {headers: this.headers});
+  }  
 
 }

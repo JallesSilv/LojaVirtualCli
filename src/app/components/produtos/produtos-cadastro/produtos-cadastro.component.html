@@ -1,13 +1,13 @@
-<p>produtos-cadastro works!</p>
 
 <div class="container col-md-12">
+ 
   <h1 class="h4 titulo"><title></title></h1>
 
   <label for="inputNome" class="sr-only">Nome</label>
   <input type="text" id="inputNome"
         name="nomeProduto"
         placeholder="Nome do produto"
-        class="form-control mb-2 col-md-4"
+        class="form-control mb-2 col-md-12"        
         [ngClass]="{
           'is-invalid': nome.invalid && (nome.dirty || nome.touched),
           'is-valid': nome.valid && (nome.dirty || nome.touched)
@@ -25,7 +25,7 @@
   <input type="text" id="inputDescricao"
         name="descricaoProduto"
         placeholder="Descrição do produto"
-        class="form-control mb-2 col-md-4"
+        class="form-control mb-2 col-md-12"
         [ngClass]="{
           'is-invalid': descricao.invalid && (descricao.dirty || descricao.touched),
           'is-valid': descricao.valid && (descricao.dirty || descricao.touched)
@@ -50,7 +50,7 @@
         id="inputPreco"
         name="precoProduto"
         placeholder="Preço"
-        class="form-control mb-2 col-md-2"
+        class="form-control mb-2 col-md-12"        
         [ngClass]="{
           'is-invalid': preco.invalid && (preco.dirty || preco.touched),
           'is-valid': preco.valid && (preco.dirty || preco.touched)
@@ -74,10 +74,10 @@
 
   <div class="form-inline">
     <button class="btn btn-primary" style="margin-right:4px;" (click)="cadastrar()" [disabled]="ativarSpinner">
-      <span class="spinner-border spinner-border-sm" *ngIf="ativarSpinner"></span>
+      <span class="spinner-border text-primary"></span>
       Cadastrar
     </button>
-    <button class="btn btn-secondary" [routerLink]="['/produto']">Cancelar</button>
+    <button class="btn btn-secondary" aria-label="Close" (click)="cancelar()">Cancelar</button>
   </div>
 
   <div class="alert alert-danger col-md-4" *ngIf="mensagem">

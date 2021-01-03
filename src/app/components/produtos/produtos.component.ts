@@ -1,10 +1,13 @@
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, destroyPlatform, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
-import { TipoCategoria } from 'src/app/models/tipocategoria';
+import { CategoriaProduto } from 'src/app/models/categoriaproduto';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutosService } from 'src/app/servicos/produtos/produtos.service';
+import { Console } from 'console';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ProdutosCadastroComponent } from './produtos-cadastro/produtos-cadastro.component';
 
 
 @Component({
@@ -19,12 +22,17 @@ export class ProdutosComponent implements OnInit {
   public produto: Produtos;
   public mensagem: string;
   public ativarSpinner: boolean;
+  public ativarCadastro:boolean;
   arquivoSelecionado: File;
-
+  public _modalRef: any;
   constructor(private produtosService: ProdutosService,
               private router: Router,
-              // private modalService: BsModalService
-              ) { }
+              private modalService: NgbModal
+              // private modalService: BsModalService,
+              ) 
+              {
+
+               }
 
   ngOnInit(): void {
     const produtoSession = sessionStorage.getItem('produtoSession');
@@ -35,45 +43,16 @@ export class ProdutosComponent implements OnInit {
     }
   }
 
-  // public inputChange(files: FileList) {
-  //   this.arquivoSelecionado = files.item(0);
-  //   this.ativarSpinner = true;
-  //   this.produtosService.enviarArquivo(this.arquivoSelecionado)
-  //   .subscribe (
-  //     NOMEJSON => {
-  //       this.produto.nomeImagem = JSON.parse(NOMEJSON);
-  //       console.log(NOMEJSON);
-  //       this.ativarSpinner = false;
-  //     },
-  //     eX => {
-  //       console.log(eX.error);
-  //       this.ativarSpinner = false;
-  //     }
-  //   );
-  // }
-
-  public cadastrar(){
-    this.ativarEspera();
-    this.produtosService.cadastrarProdutos(this.produto)
-    .subscribe(
-      PRODUTOJSON => {
-        console.log(PRODUTOJSON);
-        this.DesativarEspera();
-        this.router.navigate(['/produtos']);
-      },
-      eX => {
-        console.log(eX.error);
-        this.mensagem = eX.error;
-        this.DesativarEspera();
-      }
-    );
+  openModal(content)
+  {
+    this._modalRef =  this.modalService.open(content);
+    
   }
 
-  openModal(template: TemplateRef<TipoCategoria>) {
-    // var test = new PedidosComponent(template.elementRef.nativeElement);
-    // this.modalRef = this.modalService.show(template);
+  desativarModal()
+  {
+    
   }
-
   public ativarEspera() {
     this.ativarSpinner = true;
   }
